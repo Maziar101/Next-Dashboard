@@ -1,6 +1,6 @@
+import CustomLink from "./components/CustomButton";
 import FuzzyText from "./components/FuzzyText/FuzzyText";
 import styles from "./not-found.module.scss";
-import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -10,9 +10,7 @@ export default function NotFound() {
         the page you're looking for, <br /> doesn't <b>exist</b> or has been{" "}
         <b>moved</b>.
       </p>
-      <Link href="/" className={styles.button}>
-        Home
-      </Link>
+      <CustomLink>test</CustomLink>
     </div>
   );
 }
