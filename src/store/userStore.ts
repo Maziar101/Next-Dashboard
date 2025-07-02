@@ -3,9 +3,9 @@ import { PersistOptions } from "zustand/middleware";
 import { persist } from "zustand/middleware";
 
 interface UserState {
-  user: string | null;
+  user: object | null;
   token: string | null;
-  login: (data: { user: string; token: string }) => void;
+  login: (data: { user: object; token: string }) => void;
   logout: () => void;
 }
 
@@ -19,6 +19,9 @@ export const useUserStore = create<UserState>()(
       login: ({ user, token }) => set({ user, token }),
       logout: () => set({ user: null, token: null }),
     }),
-    { name: "user" } as MyPersist
+    {
+      name: "user",
+      storage: typeof window !== "undefined" ? localStorage : undefined,
+    } as MyPersist
   )
 );
