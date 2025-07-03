@@ -1,11 +1,18 @@
 import { create } from "zustand";
-import { PersistOptions } from "zustand/middleware";
+import { createJSONStorage, PersistOptions } from "zustand/middleware";
 import { persist } from "zustand/middleware";
+
+interface User {
+  name: {
+    first: string;
+  };
+  phone: string;
+}
 
 interface UserState {
   user: object | null;
   token: string | null;
-  login: (data: { user: object; token: string }) => void;
+  login: (data: { user: User; token: string }) => void;
   logout: () => void;
 }
 
@@ -21,7 +28,7 @@ export const useUserStore = create<UserState>()(
     }),
     {
       name: "user",
-      storage: typeof window !== "undefined" ? localStorage : undefined,
+      storage: createJSONStorage(() => localStorage),
     } as MyPersist
   )
 );
